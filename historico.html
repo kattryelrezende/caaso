@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquivo Histórico | CAASO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/icon-caaso.ico">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="img/light-minerva.png" alt="Logo do CAASO" class="logo-full">
+                <img src="img/light-icon-minerva.png" alt="Logo do CAASO" class="logo-icon">
+            </a>
+        </div>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="pautas.html">Mural de Pautas</a></li>
+                <li><a href="carta.html">Carta da Gestão</a></li>
+                <li><a href="historico.html" class="link-ativo">Arquivo Histórico</a></li>
+                <li><a href="conquistas.html">Conquistas</a></li>
+                <li><a href="loja.html">Lojinha</a></li>
+                <li><a href="login.html" class="btn-primary">Área do Sócio</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <main id="app-content">
+        <section class="page-section">
+            <div class="header-street">
+                <h2>ARQUIVO HISTÓRICO</h2>
+            </div>
+            <p class="section-desc mb-4">Memória e Luta Estudantil. Clique nos registros para ler os documentos e detalhes históricos.</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item duotone" onclick="abrirModalHistorico('greve1990')" style="cursor: pointer;">
+                    <img src="https://placehold.co/400x300/000000/FFFFFF?text=Greve+Estudantil" alt="Arquivo Histórico">
+                    <p class="caption">Assembleia - 1990</p>
+                </div>
+                <div class="gallery-item duotone" onclick="abrirModalHistorico('reforma')" style="cursor: pointer;">
+                    <img src="https://placehold.co/400x300/000000/FFFFFF?text=Reforma+CAASO" alt="Arquivo Histórico">
+                    <p class="caption">Construção da Sede</p>
+                </div>
+                <div class="gallery-item duotone" onclick="abrirModalHistorico('fundacao')" style="cursor: pointer;">
+                    <img src="https://placehold.co/400x300/000000/FFFFFF?text=Documento+Oficial" alt="Arquivo Histórico">
+                    <p class="caption">Ata de Fundação</p>
+                </div>
+                <div class="gallery-item duotone" onclick="abrirModalHistorico('passeata2015')" style="cursor: pointer;">
+                    <img src="https://placehold.co/400x300/000000/FFFFFF?text=Movimento+Estudantil" alt="Arquivo Histórico">
+                    <p class="caption">Passeata - 2015</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="modal-historico" class="modal-overlay hidden">
+            <div class="modal-box card-street">
+                <button class="btn-fechar" onclick="fecharModalHistorico()">X</button>
+                <div class="modal-content">
+                    <img id="modal-img" src="" alt="Imagem do Arquivo">
+                    <div class="modal-textos">
+                        <h2 id="modal-titulo" class="modal-title-street">TÍTULO</h2>
+                        <div id="modal-corpo" class="document-content"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-vibrant">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="img/dark-minerva.png" alt="Logo do CAASO" class="logo-full dark-logo">
+                <p>Centro Acadêmico Armando de Salles Oliveira</p>
+            </div>
+            <div class="footer-links">
+                <a href="pautas.html">Pautas</a>
+                <a href="carta.html">Carta da Gestão</a>
+                <a href="historico.html">Arquivo Histórico</a>
+            </div>
+            <div class="footer-links">
+                <a href="conquistas.html">Conquistas</a>
+                <a href="loja.html">Lojinha</a>
+                <a href="login.html">Área do Sócio</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 - LUTA, HISTÓRIA E CULTURA</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

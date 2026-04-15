@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | CAASO</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/icon-caaso.ico">
+</head>
+<body class="admin-body">
+
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="img/light-minerva.png" alt="Logo do CAASO" class="logo-full">
+            <p>Painel de Gestão</p>
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-btn active" onclick="switchAdminTab('pautas', this)">Mural de Pautas</button>
+            <button class="nav-btn" onclick="switchAdminTab('loja', this)">Lojinha</button>
+            <button class="nav-btn" onclick="switchAdminTab('noticias', this)">Mural de Notícias</button>
+            <button class="nav-btn" onclick="switchAdminTab('memoria', this)">Memória Viva</button>
+            <button class="nav-btn" onclick="switchAdminTab('historico', this)">Arquivo Histórico</button>
+            <button class="nav-btn" onclick="switchAdminTab('conquistas', this)">Conquistas</button>
+            <button class="nav-btn" onclick="switchAdminTab('carta', this)">Carta da Gestão</button>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="btn-secondary w-100 text-center" style="display: block; text-decoration: none;">Sair / Voltar ao Site</a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <header class="admin-topbar">
+            <h2>Gestão de Conteúdo Integrada</h2>
+            <div class="admin-user">Diretoria Logada</div>
+        </header>
+
+        <div class="admin-content">
+            
+            <section id="crud-pautas" class="crud-section active">
+                <div class="crud-header">
+                    <h3>Mural de Pautas</h3>
+                    <button class="btn-primary" onclick="abrirModal('pauta')">+ Nova Pauta</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Título</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-pautas"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-loja" class="crud-section">
+                <div class="crud-header">
+                    <h3>Lojinha</h3>
+                    <button class="btn-primary" onclick="abrirModal('produto')">+ Novo Produto</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Produto</th><th>Preço</th><th>Estoque</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-loja"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-noticias" class="crud-section">
+                <div class="crud-header">
+                    <h3>Mural de Notícias</h3>
+                    <button class="btn-primary" onclick="abrirModal('noticia')">+ Nova Notícia</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Título</th><th>Urgente?</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-noticias"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-memoria" class="crud-section">
+                <div class="crud-header">
+                    <h3>Memória Viva CAASO</h3>
+                    <button class="btn-primary" onclick="abrirModal('memoria')">+ Novo Registro</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Título</th><th>Imagem (URL)</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-memoria"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-historico" class="crud-section">
+                <div class="crud-header">
+                    <h3>Arquivo Histórico</h3>
+                    <button class="btn-primary" onclick="abrirModal('historico')">+ Novo Documento</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Nome</th><th>Título do Texto</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-historico"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-conquistas" class="crud-section">
+                <div class="crud-header">
+                    <h3>Conquistas</h3>
+                    <button class="btn-primary" onclick="abrirModal('conquista')">+ Nova Conquista</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Título</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-conquistas"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-carta" class="crud-section">
+                <div class="crud-header">
+                    <h3>Carta da Gestão</h3>
+                    <button class="btn-primary" onclick="abrirModal('carta')">+ Nova Carta</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Título</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-carta"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="admin-modal" class="modal-overlay hidden">
+        <div class="modal-box card-street" style="max-width: 500px;">
+            <button class="btn-fechar" onclick="fecharModal()">X</button>
+            <h2 id="modal-form-title" class="mb-4">Adicionar Item</h2>
+            
+            <form id="admin-form" onsubmit="salvarCRUD(event)">
+                <input type="hidden" id="form-id"> 
+                <input type="hidden" id="form-type"> 
+                <div id="form-fields"></div>
+                
+                <button type="submit" class="btn-primary w-100 mt-4">SALVAR</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

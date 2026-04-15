@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural de Pautas | CAASO</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/icon-caaso.ico">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="img/light-minerva.png" alt="Logo do CAASO" class="logo-full">
+                <img src="img/light-icon-minerva.png" alt="Logo do CAASO" class="logo-icon">
+            </a>
+        </div>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="pautas.html" class="link-ativo">Mural de Pautas</a></li>
+                <li><a href="carta.html">Carta da Gestão</a></li>
+                <li><a href="historico.html">Arquivo Histórico</a></li>
+                <li><a href="conquistas.html">Conquistas</a></li>
+                <li><a href="loja.html">Lojinha</a></li>
+                <li><a href="login.html" class="btn-primary">Área do Sócio</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <main id="app-content">
+        <section class="page-section">
+            <div class="header-street">
+                <h2>MURAL DE PAUTAS</h2>
+                <div class="street-element tape"></div>
+            </div>
+            <p class="section-desc mb-4">Acompanhe aqui o andamento das reuniões, ofícios e assembleias geridas pela
+                diretoria atual.</p>
+
+            <div class="pautas-grid" id="pautas-container">
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-vibrant">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="img/dark-minerva.png" alt="Logo do CAASO" class="logo-full dark-logo">
+                <p>Centro Acadêmico Armando de Salles Oliveira</p>
+            </div>
+            <div class="footer-links">
+                <a href="pautas.html">Pautas</a>
+                <a href="carta.html">Carta da Gestão</a>
+                <a href="historico.html">Arquivo Histórico</a>
+            </div>
+            <div class="footer-links">
+                <a href="conquistas.html">Conquistas</a>
+                <a href="loja.html">Lojinha</a>
+                <a href="login.html">Área do Sócio</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 - LUTA, HISTÓRIA E CULTURA</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

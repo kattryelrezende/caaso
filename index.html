@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início | CAASO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/icon-caaso.ico">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="img/light-minerva.png" alt="Logo do CAASO" class="logo-full">
+                <img src="img/light-icon-minerva.png" alt="Logo do CAASO" class="logo-icon">
+            </a>
+        </div>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="link-ativo">Início</a></li>
+                <li><a href="pautas.html">Mural de Pautas</a></li>
+                <li><a href="carta.html">Carta da Gestão</a></li>
+                <li><a href="historico.html">Arquivo Histórico</a></li>
+                <li><a href="conquistas.html">Conquistas</a></li>
+                <li><a href="loja.html">Lojinha</a></li>
+                <li><a href="login.html" class="btn-primary">Área do Sócio</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <main id="app-content">
+        <section class="page-section">
+            <div class="hero-street">
+                <img src="img/dark-minerva-icon.png" alt="Símbolo do CAASO" class="hero-icon">
+                <div>
+                    <h2>CAASO VIVE!</h2>
+                    <p>LUTA, HISTÓRIA E CULTURA NA USP SÃO CARLOS</p>
+                </div>
+            </div>
+
+            <div class="about-grid">
+                <div class="card-street">
+                    <h3>QUEM SOMOS</h3>
+                    <p>O Centro Acadêmico Armando de Salles Oliveira (CAASO) é a entidade máxima de representação dos
+                        estudantes do campus da USP em São Carlos. Desde a nossa fundação, somos o pilar da defesa dos
+                        direitos estudantis, lutando por permanência, estrutura de qualidade e uma universidade
+                        verdadeiramente pública.</p>
+                </div>
+                <div class="card-street" style="background-color: var(--caaso-black); color: var(--caaso-white);">
+                    <h3 style="color: var(--caaso-yellow);">NOSSO PAPEL</h3>
+                    <p>Para além da representação política frente à reitoria, o CAASO é um polo de esporte, cultura e
+                        vivência. Gerimos espaços de convivência, promovemos eventos históricos e apoiamos os coletivos
+                        universitários que moldam a nossa identidade.</p>
+                </div>
+            </div>
+
+            <div class="header-street mt-4">
+                <h2>ACESSO RÁPIDO</h2>
+            </div>
+            <div class="quick-links-grid">
+                <div class="card-street text-center">
+                    <h3>PAUTAS E ASSEMBLEIAS</h3>
+                    <p>Acompanhe as reivindicações do movimento estudantil.</p>
+                    <a href="pautas.html" class="btn-primary mt-2" style="display:inline-block;">Mural de Pautas</a>
+                </div>
+                <div class="card-street text-center">
+                    <h3>PRODUTOS OFICIAIS</h3>
+                    <p>Adquira nossos produtos e apoie financeiramente a entidade.</p>
+                    <a href="loja.html" class="btn-primary mt-2" style="display:inline-block;">Lojinha do CAASO</a>
+                </div>
+            </div>
+        </section>
+        <section id="memoria" class="page-section">
+            <div class="header-street mb-4">
+                <h2>MEMÓRIA VIVA CAASO</h2>
+                <div class="street-element tape"></div>
+            </div>
+
+            <div class="memoria-grid">
+                <div class="memoria-image-container card-street">
+                    <img id="memoria-img" src="" alt="Foto Histórica CAASO">
+                </div>
+
+                <div class="memoria-info card-street"
+                    style="background-color: var(--caaso-black); color: var(--caaso-white);">
+                    <div class="form-group mb-4">
+                        <label for="foto-select" style="color: var(--caaso-yellow);">Selecione o registro
+                            histórico:</label>
+                        <select id="foto-select" class="street-select" onchange="mudarFotoMemoria()">
+                            <option value="0">Tuscaaso (2023)</option>
+                            <option value="1">Assembleia (2012)</option>
+                            <option value="2">Mobilização Bebidas (2011)</option>
+                        </select>
+                    </div>
+
+                    <div class="memoria-textos">
+                        <h3 id="memoria-titulo"
+                            style="color: var(--caaso-yellow); font-size: 2rem; margin-bottom: 1rem; line-height: 1;">
+                        </h3>
+                        <p id="memoria-desc" style="font-family: var(--font-doc); text-align: justify;"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicos" class="page-section">
+            <div class="header-street mb-4">
+                <h2>SERVIÇOS AO ESTUDANTE</h2>
+            </div>
+            <div class="servicos-grid">
+                <div class="service-block card-street">
+                    <img class="minerva-icon" src="img/food.svg">
+                    <h3>BANDECO</h3>
+                    <p>Acompanhamento diário do cardápio e mobilização pela qualidade e gratuidade das refeições.</p>
+                </div>
+                <div class="service-block card-street"
+                    style="background-color: var(--caaso-black); color: var(--caaso-yellow);">
+                    <img class="minerva-icon" src="img/home.svg">
+                    <h3>ALOJA</h3>
+                    <p>Apoio à permanência estudantil e gestão das demandas de infraestrutura do alojamento.</p>
+                </div>
+                <div class="service-block card-street">
+                    <img class="minerva-icon" src="img/caju.svg">
+                    <h3>CAJU</h3>
+                    <p>Integração, cultura e o famoso suco que é tradição em cada evento da nossa história.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="noticias" class="page-section">
+            <div class="header-street">
+                <h2>MURAL DE NOTÍCIAS</h2>
+            </div>
+            <div class="lambe-grid">
+                <article class="lambe-poster poster-1">
+                    <span class="status-badge">URGENTE</span>
+                    <h3>NOVAS VAGAS NO ALOJA</h3>
+                    <p>Confira o edital de permanência para o próximo semestre.</p>
+                </article>
+                <article class="lambe-poster poster-2">
+                    <h3>ASSEMBLEIA GERAL</h3>
+                    <p>Sexta-feira, às 18h. Pauta: Orçamento da USP.</p>
+                </article>
+                <article class="lambe-poster poster-3">
+                    <h3>FESTA DO CAJU</h3>
+                    <p>O retorno da maior integração do campus. Ingressos em breve!</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="caaso-vive" class="page-section gallery-street">
+            <div class="street-header">
+                <h2 class="vibrant-title">CAASO VIVE!</h2>
+            </div>
+            <div class="gallery-grid-street">
+                <div class="gallery-item-street">
+                    <img src="img/grafitti.png" alt="Graffiti no CAASO">
+                    <div class="overlay">Graffiti<br>no CAASO</div>
+                </div>
+
+                <div class="gallery-item-street">
+                    <img src="img/eventos.png" alt="Eventos e Cultura">
+                    <div class="overlay">Eventos<br>e Cultura</div>
+                </div>
+
+                <div class="gallery-item-street">
+                    <img src="img/ato.png" alt="Atos e Mobilizações">
+                    <div class="overlay">Atos e Mobilizações</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-vibrant">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="img/dark-minerva.png" alt="Logo do CAASO" class="logo-full dark-logo">
+                    <p>Centro Acadêmico Armando de Salles Oliveira</p>
+                </div>
+                <div class="footer-links">
+                    <a href="pautas.html">Pautas</a>
+                    <a href="carta.html">Carta da Gestão</a>
+                    <a href="historico.html">Arquivo Histórico</a>
+                </div>
+                <div class="footer-links">
+                    <a href="conquistas.html">Conquistas</a>
+                    <a href="loja.html">Lojinha</a>
+                    <a href="login.html">Área do Sócio</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 - LUTA, HISTÓRIA E CULTURA</p>
+            </div>
+        </footer>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
