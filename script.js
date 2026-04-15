@@ -245,15 +245,27 @@ function renderPautas() {
     });
 }
 
+/* ==========================================================================
+   RENDERIZAÇÃO DINÂMICA DE CONTEÚDO
+   ========================================================================== */
+
 /**
- * Gera os itens da Lojinha com efeito de hover e lógica de reserva
+ * Gera os itens da Lojinha com suporte a filtragem (Barra de Pesquisa)
+ * @param {Array} produtosParaExibir - Lista opcional de produtos para renderizar
  */
-function renderLoja() {
+function renderLoja(produtosParaExibir = dadosProdutos) {
     const container = document.getElementById('loja-container');
     if (!container) return;
 
     container.innerHTML = '';
-    dadosProdutos.forEach(produto => {
+
+    // Verifica se existem produtos após o filtro
+    if (produtosParaExibir.length === 0) {
+        container.innerHTML = '<p class="text-center" style="grid-column: 1/-1; font-size: 1.5rem; font-family: var(--font-title);">Nenhum produto encontrado.</p>';
+        return;
+    }
+
+    produtosParaExibir.forEach(produto => {
         const card = document.createElement('div');
         card.className = 'card-street';
         card.innerHTML = `
@@ -267,6 +279,25 @@ function renderLoja() {
             <button class="btn-primary" style="margin-top: 1rem; width: 100%;" onclick="reservarProduto(${produto.id})">COMPRAR / RESERVAR</button>
         `;
         container.appendChild(card);
+    });
+}
+
+/**
+ * Lógica da Barra de Pesquisa
+ */
+function configurarPesquisa() {
+    const inputPesquisa = document.getElementById('search-produto');
+    if (!inputPesquisa) return;
+
+    inputPesquisa.addEventListener('input', (e) => {
+        const termo = e.target.value.toLowerCase();
+        
+        // Filtra os produtos cujo nome contém o termo pesquisado
+        const produtosFiltrados = dadosProdutos.filter(produto => 
+            produto.nome.toLowerCase().includes(termo)
+        );
+
+        renderLoja(produtosFiltrados);
     });
 }
 
@@ -365,5 +396,6 @@ function logout() {
 
 renderPautas();
 renderLoja();
+configurarPesquisa();
 renderConquistas();
 mudarFotoMemoria();

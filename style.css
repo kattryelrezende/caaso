@@ -405,9 +405,16 @@ h1, h2, h3 {
 /* ==========================================================================
    GRIDS ESPECÍFICOS (PAUTAS, LOJA, SOBRE)
    ========================================================================== */
-.pautas-grid, .loja-grid, .about-grid, .quick-links-grid {
+.pautas-grid, .about-grid, .quick-links-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.loja-grid {
+    display: grid;
+    /* auto-fill cria colunas fantasmas mesmo que não haja itens, impedindo o card de expandir */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
 }
 
