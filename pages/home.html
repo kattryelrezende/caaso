@@ -1,0 +1,104 @@
+<!-- pages/home.html -->
+<section class="page-section">
+    <div class="hero-street">
+        <img src="img/dark-minerva-icon.png" alt="Símbolo do CAASO" class="hero-icon">
+        <div>
+            <h2>CAASO VIVE!</h2>
+            <p>LUTA, HISTÓRIA E CULTURA NA USP SÃO CARLOS</p>
+        </div>
+    </div>
+
+    <div class="about-grid">
+        <div class="card-street">
+            <h3>QUEM SOMOS</h3>
+            <p>O Centro Acadêmico Armando de Salles Oliveira (CAASO) é a entidade máxima de representação dos estudantes do campus da USP em São Carlos. Desde a nossa fundação, somos o pilar da defesa dos direitos estudantis, lutando por permanência, estrutura de qualidade e uma universidade verdadeiramente pública.</p>
+        </div>
+        <div class="card-street" style="background-color: var(--caaso-black); color: var(--caaso-white);">
+            <h3 style="color: var(--caaso-yellow);">NOSSO PAPEL</h3>
+            <p>Para além da representação política frente à reitoria, o CAASO é um polo de esporte, cultura e vivência. Gerimos espaços de convivência, promovemos eventos históricos e apoiamos os coletivos universitários que moldam a nossa identidade.</p>
+        </div>
+    </div>
+
+    <div class="header-street mt-4">
+        <h2>ACESSO RÁPIDO</h2>
+    </div>
+    <div class="quick-links-grid">
+        <div class="card-street text-center">
+            <h3>PAUTAS E ASSEMBLEIAS</h3>
+            <p>Acompanhe as reivindicações do movimento estudantil.</p>
+            <a href="#pautas" class="btn-primary mt-2" style="display:inline-block;">Mural de Pautas</a>
+        </div>
+        <div class="card-street text-center">
+            <h3>PRODUTOS OFICIAIS</h3>
+            <p>Adquira nossos produtos e apoie financeiramente a entidade.</p>
+            <a href="#loja" class="btn-primary mt-2" style="display:inline-block;">Lojinha do CAASO</a>
+        </div>
+    </div>
+</section>
+
+<section id="memoria" class="page-section">
+    <div class="header-street mb-4">
+        <h2>MEMÓRIA VIVA CAASO</h2>
+        <div class="street-element tape"></div>
+    </div>
+
+    <div class="memoria-grid">
+        <div class="memoria-image-container card-street">
+            <img id="memoria-img" src="" alt="Foto Histórica CAASO">
+        </div>
+
+        <div class="memoria-info card-street" style="background-color: var(--caaso-black); color: var(--caaso-white);">
+            <div class="form-group mb-4">
+                <label for="foto-select" style="color: var(--caaso-yellow);">Selecione o registro histórico:</label>
+                <select id="foto-select" class="street-select">
+                    <option value="0">Tuscaaso (2023)</option>
+                    <option value="1">Assembleia (2012)</option>
+                    <option value="2">Mobilização Bebidas (2011)</option>
+                </select>
+            </div>
+
+            <div class="memoria-textos">
+                <h3 id="memoria-titulo" style="color: var(--caaso-yellow); font-size: 2rem; margin-bottom: 1rem; line-height: 1;"></h3>
+                <p id="memoria-desc" style="font-family: var(--font-doc); text-align: justify;"></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="servicos" class="page-section">
+    <div class="header-street mb-4">
+        <h2>SERVIÇOS AO ESTUDANTE</h2>
+    </div>
+    <div id="servicos-container" class="servicos-grid">
+        <!-- Renderizado dinamicamente pelo renderServicos() -->
+    </div>
+</section>
+
+<section id="noticias" class="page-section">
+    <div class="header-street">
+        <h2>MURAL DE NOTÍCIAS</h2>
+    </div>
+    <div id="noticias-home" class="lambe-grid">
+        <!-- Renderizado dinamicamente pelo renderNoticias() -->
+    </div>
+</section>
+
+<section id="caaso-vive" class="page-section gallery-street">
+    <div class="street-header">
+        <h2 class="vibrant-title">CAASO VIVE!</h2>
+    </div>
+    <div class="gallery-grid-street">
+        <div class="gallery-item-street">
+            <img src="img/grafitti.png" alt="Graffiti no CAASO">
+            <div class="overlay">Graffiti<br>no CAASO</div>
+        </div>
+        <div class="gallery-item-street">
+            <img src="img/eventos.png" alt="Eventos e Cultura">
+            <div class="overlay">Eventos<br>e Cultura</div>
+        </div>
+        <div class="gallery-item-street">
+            <img src="img/ato.png" alt="Atos e Mobilizações">
+            <div class="overlay">Atos e Mobilizações</div>
+        </div>
+    </div>
+</section>

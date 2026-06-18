@@ -1,0 +1,105 @@
+/* css/layouts/navbar.css - Estilos da barra de navegação */
+.navbar {
+    margin-bottom: 3rem;
+    background-color: var(--caaso-black);
+    color: var(--caaso-yellow);
+    padding: .5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 6px solid var(--caaso-yellow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container { cursor: pointer; }
+
+.logo-full {
+    width: 120px;
+    max-width: 100%;
+}
+
+.logo-icon {
+    width: 40px;
+    display: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--caaso-white);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.nav-links a.link-ativo,
+.nav-links a.active-page {
+    color: var(--caaso-yellow);
+    border-bottom: 2px solid var(--caaso-yellow);
+}
+
+.nav-links a:hover {
+    color: var(--caaso-yellow);
+}
+
+.nav-links a.btn-primary {
+    color: var(--caaso-black);
+    background-color: var(--caaso-yellow);
+    display: inline-block;
+}
+
+.nav-links a.btn-primary:hover {
+    background-color: var(--caaso-white);
+    color: var(--caaso-black);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--caaso-yellow);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Responsividade do menu */
+@media (max-width: 1100px) {
+    .logo-full { display: none; }
+    .dark-logo { display: block; }
+    .logo-icon {
+        display: inline-block;
+        width: 50px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: var(--caaso-black);
+        padding: 1rem 0;
+        border-top: 2px solid #222;
+        border-bottom: 6px solid var(--caaso-yellow);
+    }
+    
+    .nav-links.active { display: flex; }
+    
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .nav-links li:last-child { margin-bottom: 0; }
+    
+    .menu-toggle { display: block; }
+}

@@ -1,0 +1,68 @@
+/* css/components/gallery.css */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+.gallery-item {
+    border: 4px solid var(--caaso-black);
+    background-color: var(--caaso-black);
+    color: var(--caaso-yellow);
+    cursor: pointer;
+}
+.gallery-item img {
+    width: 100%;
+    display: block;
+    filter: sepia(1) hue-rotate(10deg) saturate(3) brightness(0.8);
+    transition: filter 0.3s;
+}
+.gallery-item:hover img { filter: none; }
+.caption {
+    padding: 0.5rem;
+    text-align: center;
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+}
+
+/* Galeria street da home */
+.gallery-grid-street {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 2rem;
+}
+.gallery-item-street {
+    position: relative;
+    overflow: hidden;
+    border: 5px solid var(--caaso-black);
+    aspect-ratio: 1 / 1;
+    background-color: var(--caaso-black);
+}
+.gallery-item-street img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.gallery-item-street .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: var(--caaso-yellow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-title);
+    font-size: 3rem;
+    text-transform: uppercase;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+.gallery-item-street:hover .overlay { transform: translateY(0); }
+.gallery-item-street:hover img { transform: scale(1.05); }
+@media (max-width: 1100px) { .gallery-grid-street { grid-template-columns: 1fr; } }

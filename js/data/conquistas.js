@@ -1,0 +1,10 @@
+// js/data/conquistas.js
+export const conquistas = [
+    { id: 1, ano: "2024", titulo: "Tricampeonato Consecutivo da Tusca", desc: "O CAASO consagrou-se campeão da Taça Universitária de São Carlos (TUSCA) pelo terceiro ano seguido, alcançando a marca histórica de 8 títulos na competição desde sua criação." },
+    { id: 2, ano: "2024", titulo: "70 Anos de História e Resistência", desc: "Celebração das sete décadas de fundação do Centro Acadêmico, marcada por uma exposição histórica na Biblioteca da EESC, resgatando a memória política, esportiva e cultural da entidade." },
+    { id: 3, ano: "2013", titulo: "Fim da Greve Estudantil e Conquistas", desc: "Após forte mobilização e ocupação, os estudantes conquistaram a abertura de negociações para liberação de mais verbas e melhorias estruturais para o campus e para a entidade." },
+    { id: 4, ano: "2011", titulo: "Mobilização em Defesa do Campus", desc: "Grande ato político realizado em 26 de outubro, que reuniu mais de 200 estudantes contra a proibição de bebidas no campus, defendendo a autonomia dos espaços de vivência universitária." },
+    { id: 5, ano: "2007", titulo: "Greve contra Decretos Privatistas", desc: "Mobilização histórica ao lado de outros diretórios em defesa do ensino público de qualidade e contra os decretos do então governador que ameaçavam a autonomia universitária da USP." },
+    { id: 6, ano: "1970s", titulo: "Resistência à Ditadura e Refundação do DCE", desc: "O CAASO consolidou-se como um dos maiores centros acadêmicos da América Latina, tendo papel central na resistência ao regime militar e na refundação do DCE Livre da USP Alexandre Vannucchi Leme." },
+    { id: 7, ano: "1953", titulo: "A Fundação", desc: "Fundado em 22 de abril pela primeira turma de engenharia da EESC, nascia o órgão representativo que carregaria o nome do criador da USP e seria o pilar do movimento estudantil em São Carlos." }
+];

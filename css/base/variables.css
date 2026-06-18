@@ -1,0 +1,11 @@
+/* css/base/variables.css */
+:root {
+    --caaso-yellow: #FFCC00;
+    --caaso-black: #050505;
+    --caaso-red: #D32F2F;
+    --caaso-white: #F4F4F0;
+    
+    --font-title: 'Anton', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-doc: 'Merriweather', serif;
+}

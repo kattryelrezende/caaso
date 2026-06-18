@@ -1,0 +1,17 @@
+/* css/base/reset.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: var(--font-body);
+    background-color: var(--caaso-white);
+    color: var(--caaso-black);
+    line-height: 1.6;
+}
+h1, h2, h3 {
+    font-family: var(--font-title);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

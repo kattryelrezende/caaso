@@ -1,0 +1,8 @@
+/* css/pages/historico.css - estilos específicos do arquivo histórico */
+.duotone img {
+    filter: sepia(1) hue-rotate(10deg) saturate(3) brightness(0.8);
+    transition: filter 0.3s;
+}
+.duotone:hover img {
+    filter: none;
+}

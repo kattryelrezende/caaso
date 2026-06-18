@@ -1,0 +1,116 @@
+<!-- pages/login.html -->
+<section class="page-section">
+    <div class="header-street mb-4">
+        <h2>SÓCIO CAASO</h2>
+        <div class="street-element tape"></div>
+    </div>
+
+    <div class="login-split-grid">
+        <div class="benefits-panel card-street" style="background-color: var(--caaso-black); color: var(--caaso-white);">
+            <h3 style="color: var(--caaso-yellow); font-size: 2rem; margin-bottom: 1rem;">POR QUE SER SÓCIO?</h3>
+            <p style="margin-bottom: 1.5rem;">O CAASO é construído por e para os estudantes. Ao se associar, você fortalece o movimento estudantil e garante a manutenção dos nossos espaços.</p>
+            
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 1rem;"><strong>Produtos Baratos:</strong> Preços especiais em todos os produtos da lojinha e ingressos de festas.</li>
+                <li style="margin-bottom: 1rem;"><strong>Descontos Exclusivos:</strong> Descontos dedicados a sócios do CAASO em diferentes lojas.</li>
+                <li style="margin-bottom: 1rem;"><strong>Integração:</strong> Acesso prioritário aos eventos culturais e esportivos (TUSCA).</li>
+            </ul>
+        </div>
+
+        <div class="forms-panel card-street">
+            
+            <div id="login-section">
+                <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">ACESSE SUA CONTA</h3>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="nusp-login">Número USP</label>
+                        <input type="text" id="nusp-login" required placeholder="Digite seu N° USP">
+                    </div>
+                    <div class="form-group">
+                        <label for="senha-login">Senha</label>
+                        <input type="password" id="senha-login" required placeholder="Sua senha">
+                    </div>
+                    <button type="submit" class="btn-primary w-100 mb-4">ENTRAR</button>
+                    <p class="text-center">Ainda não é sócio? <a href="#" id="toggle-register" style="color: var(--caaso-red); font-weight: bold;">Cadastre-se aqui.</a></p>
+                </form>
+            </div>
+
+            <div id="register-section" class="hidden">
+                <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">CADASTRE-SE</h3>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="nome-reg">Nome Completo</label>
+                        <input type="text" id="nome-reg" required placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="nusp-reg">Número USP</label>
+                        <input type="number" id="nusp-reg" required placeholder="Apenas números">
+                    </div>
+                    <div class="form-group">
+                        <label for="email-reg">E-mail</label>
+                        <input type="email" id="email-reg" required placeholder="seu@email.usp.br">
+                    </div>
+                    <div class="form-group">
+                        <label for="curso-reg">Curso (opcional)</label>
+                        <input type="text" id="curso-reg" placeholder="Engenharia Elétrica">
+                    </div>
+                    <div class="form-group">
+                        <label for="senha-reg">Criar Senha</label>
+                        <input type="password" id="senha-reg" required placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <button type="submit" class="btn-secondary w-100 mb-4" style="background-color: var(--caaso-red); border-color: var(--caaso-red);">CRIAR CONTA</button>
+                    <p class="text-center">Já tem conta? <a href="#" id="toggle-login" style="color: var(--caaso-black); font-weight: bold;">Faça login.</a></p>
+                </form>
+            </div>
+
+            <div id="perfil-socio" class="hidden text-center">
+                <h3 style="font-size: 2rem;">BEM-VINDO!</h3>
+                <div class="socio-status active">
+                    SÓCIO ATIVO
+                </div>
+                <p id="perfil-nome" class="mb-2" style="font-size: 1.2rem;"></p>
+                <p id="perfil-email" class="mb-2" style="font-size: 1rem; color: #666;"></p>
+                <p id="perfil-curso" class="mb-4" style="font-size: 1rem; color: #666;"></p>
+                <button class="btn-primary w-100 mb-2" onclick="window.abrirEditarPerfil()">EDITAR PERFIL</button>
+                <button id="logout-btn" class="btn-secondary w-100">SAIR DA CONTA</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal de Edição de Perfil -->
+<div id="modal-editar-perfil" class="modal-overlay hidden">
+    <div class="modal-box card-street" style="max-width: 500px;">
+        <button class="btn-fechar" onclick="window.fecharModalPerfil()">X</button>
+        <h2 class="mb-4">EDITAR PERFIL</h2>
+        <form id="editar-perfil-form">
+            <div class="form-group">
+                <label for="edit-nome">Nome</label>
+                <input type="text" id="edit-nome" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-email">E-mail</label>
+                <input type="email" id="edit-email" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-curso">Curso (opcional)</label>
+                <input type="text" id="edit-curso">
+            </div>
+            <hr style="margin: 1.5rem 0; border-color: #ddd;">
+            <p style="font-weight: bold; margin-bottom: 1rem;">Alterar senha (opcional)</p>
+            <div class="form-group">
+                <label for="edit-senha-atual">Senha atual</label>
+                <input type="password" id="edit-senha-atual" placeholder="Digite sua senha atual">
+            </div>
+            <div class="form-group">
+                <label for="edit-nova-senha">Nova senha</label>
+                <input type="password" id="edit-nova-senha" placeholder="Mínimo 6 caracteres">
+            </div>
+            <div class="form-group">
+                <label for="edit-confirma-senha">Confirmar nova senha</label>
+                <input type="password" id="edit-confirma-senha" placeholder="Repita a nova senha">
+            </div>
+            <button type="submit" class="btn-primary w-100">SALVAR ALTERAÇÕES</button>
+        </form>
+    </div>
+</div>
