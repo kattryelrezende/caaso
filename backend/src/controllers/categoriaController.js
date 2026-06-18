@@ -1,18 +1,13 @@
 // src/controllers/categoriaController.js
+const BaseController = require('./BaseController');
 const { Categoria } = require('../models');
 
-exports.listar = async (req, res) => {
-    try {
-        const categorias = await Categoria.findAll({
-            order: [['nome', 'ASC']],
-        });
-        res.json(categorias);
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-};
+const controller = new BaseController(Categoria, {
+    order: [['nome', 'ASC']],
+});
 
-exports.criar = async (req, res) => {
+// Sobrescrever o método `criar` para validar duplicidade (mantido)
+controller.criar = async (req, res) => {
     try {
         const { nome } = req.body;
         if (!nome) {
@@ -26,4 +21,9 @@ exports.criar = async (req, res) => {
         }
         res.status(400).json({ erro: error.message });
     }
+};
+
+module.exports = {
+    listar: controller.listar,
+    criar: controller.criar,
 };

@@ -4,10 +4,10 @@ const router = express.Router();
 const categoriaController = require('../controllers/categoriaController');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
 
-// Rotas públicas (leitura)
+// Rota pública (GET)
 router.get('/', categoriaController.listar);
 
-// Rotas protegidas (apenas admin)
+// Rota protegida (POST)
 router.post('/', authenticate, authorizeAdmin, categoriaController.criar);
 
 module.exports = router;

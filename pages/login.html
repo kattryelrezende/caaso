@@ -64,15 +64,27 @@
             </div>
 
             <div id="perfil-socio" class="hidden text-center">
-                <h3 style="font-size: 2rem;">BEM-VINDO!</h3>
+                <h3 style="font-size: 2rem;">BEM-VINDO, <span id="perfil-nome"></span>!</h3>
                 <div class="socio-status active">
-                    SÓCIO ATIVO
+                    <span id="perfil-status">MEMBRO</span>
                 </div>
-                <p id="perfil-nome" class="mb-2" style="font-size: 1.2rem;"></p>
-                <p id="perfil-email" class="mb-2" style="font-size: 1rem; color: #666;"></p>
-                <p id="perfil-curso" class="mb-4" style="font-size: 1rem; color: #666;"></p>
-                <button class="btn-primary w-100 mb-2" onclick="window.abrirEditarPerfil()">EDITAR PERFIL</button>
-                <button id="logout-btn" class="btn-secondary w-100">SAIR DA CONTA</button>
+                <p id="perfil-email" style="font-size: 1rem; color: #666;"></p>
+                <p id="perfil-curso" style="font-size: 1rem; color: #666;"></p>
+                
+                <div style="margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <button class="btn-primary" onclick="window.tornarSocio()">
+                        TORNAR-SE SÓCIO (R$5/mês)
+                    </button>
+                    <button class="btn-secondary" onclick="window.assinarNotificacoes()">
+                        RECEBER NOTÍCIAS POR E-MAIL
+                    </button>
+                    <button class="btn-primary" onclick="window.abrirEditarPerfil()">
+                        EDITAR PERFIL
+                    </button>
+                    <button id="logout-btn" class="btn-secondary" style="background-color: var(--caaso-red);">
+                        SAIR DA CONTA
+                    </button>
+                </div>
             </div>
         </div>
     </div>

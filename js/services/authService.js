@@ -6,6 +6,16 @@ let isLoggedIn = false;
 let currentUser = null;
 let currentToken = null;
 
+// === LISTENER GLOBAL PARA LOGOUT ===
+document.addEventListener('click', function(e) {
+    const target = e.target;
+    // Verifica se o clique foi no botão de logout (ou em um filho dele)
+    if (target.id === 'logout-btn' || target.closest('#logout-btn')) {
+        e.preventDefault();
+        logout();
+    }
+});
+
 export function initAuth() {
     const token = sessionStorage.getItem('user_token');
     const userData = sessionStorage.getItem('user_data');
@@ -29,41 +39,27 @@ export async function login(nusp, senha) {
         currentToken = token;
         currentUser = usuario;
         isLoggedIn = true;
+        atualizarPerfilUI();
+
         return { success: true, user: usuario };
     } catch (error) {
         return { success: false, message: error.message || 'Erro no login' };
     }
 }
 
-export async function register(nome, nusp, email, senha, curso = '', tipo = 'socio') {
+export async function register(nome, nusp, email, senha, curso = '') {
     try {
-        const pendingData = { nome, nusp, email, senha, curso, tipo };
-        sessionStorage.setItem('pending_user', JSON.stringify(pendingData));
-        navigateTo('pagamento');
-        return { success: true, redirect: true };
-    } catch (error) {
-        return { success: false, message: error.message || 'Erro no registro' };
-    }
-}
-
-export async function confirmPayment() {
-    try {
-        const pendingData = sessionStorage.getItem('pending_user');
-        if (!pendingData) {
-            throw new Error('Nenhum cadastro pendente.');
-        }
-        const { nome, nusp, email, senha, curso, tipo } = JSON.parse(pendingData);
-        const response = await auth.register(nome, nusp, email, senha, tipo, curso);
+        const response = await auth.register(nome, nusp, email, senha, 'socio', curso);
         const { usuario, token } = response;
-        sessionStorage.removeItem('pending_user');
         sessionStorage.setItem('user_token', token);
         sessionStorage.setItem('user_data', JSON.stringify(usuario));
         currentToken = token;
         currentUser = usuario;
         isLoggedIn = true;
+        atualizarPerfilUI();
         return { success: true, user: usuario };
     } catch (error) {
-        return { success: false, message: error.message || 'Erro ao ativar cadastro' };
+        return { success: false, message: error.message || 'Erro no registro' };
     }
 }
 
@@ -76,13 +72,9 @@ export function logout() {
     isLoggedIn = false;
     currentUser = null;
     currentToken = null;
-    // Redirecionar para login se estiver na página de perfil
-    const currentPage = window.location.hash.slice(1) || 'home';
-    if (currentPage === 'login') {
-        window.location.reload();
-    } else {
-        navigateTo('login');
-    }
+    
+    // Recarregar a página para resetar tudo
+    window.location.reload();
 }
 
 export function getCurrentUser() {
@@ -98,27 +90,13 @@ export function getToken() {
 }
 
 export function initLoginPage() {
-    // Verificar se já está logado
-    const userData = sessionStorage.getItem('user_data');
-    if (userData) {
-        try {
-            const user = JSON.parse(userData);
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('perfil-socio').classList.remove('hidden');
-            document.querySelector('.socio-status').innerHTML = `SÓCIO ATIVO - ${user.nome}`;
-            // Configurar logout
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                const newBtn = logoutBtn.cloneNode(true);
-                logoutBtn.parentNode.replaceChild(newBtn, logoutBtn);
-                newBtn.addEventListener('click', () => {
-                    logout();
-                });
-            }
-            return; // Não configurar os forms de login/cadastro
-        } catch (e) {}
+    // Se já estiver logado, mostra o perfil
+    if (isAuthenticated() || sessionStorage.getItem('user_data')) {
+        atualizarPerfilUI();
+        return;
     }
 
+    // Configurar formulário de login
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
@@ -127,40 +105,33 @@ export function initLoginPage() {
             const senha = document.getElementById('senha-login').value;
             const result = await login(nusp, senha);
             if (result.success) {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('perfil-socio').classList.remove('hidden');
-                document.querySelector('.socio-status').innerHTML = `SÓCIO ATIVO - ${result.user.nome}`;
-                // Reconfigurar botão logout
-                const logoutBtn = document.getElementById('logout-btn');
-                if (logoutBtn) {
-                    const newBtn = logoutBtn.cloneNode(true);
-                    logoutBtn.parentNode.replaceChild(newBtn, logoutBtn);
-                    newBtn.addEventListener('click', () => {
-                        logout();
-                    });
-                }
+                atualizarPerfilUI();
             } else {
                 alert(result.message);
             }
         });
     }
 
+    // Configurar formulário de registro
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const nome = document.getElementById('nome-reg').value;
             const nusp = document.getElementById('nusp-reg').value;
+            const email = document.getElementById('email-reg').value;
+            const curso = document.getElementById('curso-reg').value;
             const senha = document.getElementById('senha-reg').value;
-            const result = await register(nome, nusp, senha);
-            if (result.success && result.redirect) {
-                // Redirecionamento já feito
-            } else if (!result.success) {
+            const result = await register(nome, nusp, email, senha, curso);
+            if (result.success) {
+                atualizarPerfilUI();
+            } else {
                 alert(result.message);
             }
         });
     }
 
+    // Alternar entre login e cadastro
     const toggleLink = document.getElementById('toggle-register');
     if (toggleLink) {
         toggleLink.addEventListener('click', (e) => {
@@ -187,7 +158,6 @@ export async function atualizarPerfil(dados) {
             throw new Error('Usuário não autenticado');
         }
         const response = await usuarios.atualizar(currentUser.id, dados);
-        // Atualizar dados na sessão
         sessionStorage.setItem('user_data', JSON.stringify(response));
         currentUser = response;
         return { success: true, user: response };
@@ -206,5 +176,25 @@ export async function alterarSenha(senha_atual, nova_senha) {
         return { success: true };
     } catch (error) {
         return { success: false, message: error.message || 'Erro ao alterar senha' };
+    }
+}
+
+// Atualizar a UI da página de login (mostrar perfil)
+function atualizarPerfilUI() {
+    const loginSection = document.getElementById('login-section');
+    const registerSection = document.getElementById('register-section');
+    const perfilSection = document.getElementById('perfil-socio');
+    
+    if (loginSection) loginSection.classList.add('hidden');
+    if (registerSection) registerSection.classList.add('hidden');
+    if (perfilSection) {
+        perfilSection.classList.remove('hidden');
+        const user = getCurrentUser() || JSON.parse(sessionStorage.getItem('user_data') || 'null');
+        if (user) {
+            document.getElementById('perfil-nome').textContent = user.nome;
+            document.getElementById('perfil-email').textContent = user.email || '';
+            document.getElementById('perfil-curso').textContent = user.curso || '';
+            document.querySelector('.socio-status').innerHTML = `SÓCIO ATIVO - ${user.nome}`;
+        }
     }
 }

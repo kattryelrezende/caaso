@@ -1,19 +1,20 @@
 // js/components/renderNoticias.js
+import { renderList } from '../utils/renderList.js';
 import { noticias as noticiasAPI } from '../services/api.js';
 
-export async function renderNoticias(containerId = 'noticias-container', limit = null) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
+export function renderNoticias(containerId = 'noticias-container', limit = null) {
+    let fetchFn = noticiasAPI.listar;
+    if (limit) {
+        fetchFn = async () => {
+            const all = await noticiasAPI.listar();
+            return all.slice(0, limit);
+        };
+    }
 
-    try {
-        const noticias = await noticiasAPI.listar();
-        const lista = limit ? noticias.slice(0, limit) : noticias;
-        container.innerHTML = '';
-        if (lista.length === 0) {
-            container.innerHTML = '<p class="text-center" style="grid-column: 1/-1;">Nenhuma notícia cadastrada.</p>';
-            return;
-        }
-        lista.forEach(noticia => {
+    renderList(
+        containerId,
+        fetchFn,
+        (noticia) => {
             const article = document.createElement('article');
             article.className = `lambe-poster ${noticia.urgente ? 'poster-1' : 'poster-2'}`;
             article.innerHTML = `
@@ -24,9 +25,8 @@ export async function renderNoticias(containerId = 'noticias-container', limit =
                     ${new Date(noticia.criado_em).toLocaleDateString('pt-BR')}
                 </p>
             `;
-            container.appendChild(article);
-        });
-    } catch (error) {
-        container.innerHTML = `<p class="text-center" style="color: var(--caaso-red);">Erro ao carregar notícias: ${error.message}</p>`;
-    }
+            return article;
+        },
+        'Nenhuma notícia cadastrada.'
+    );
 }

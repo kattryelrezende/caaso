@@ -1,16 +1,21 @@
 // src/routes/produtoRoutes.js
-const express = require('express');
-const router = express.Router();
+const createBaseRouter = require('./BaseRouter');
 const produtoController = require('../controllers/produtoController');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
 
-// Rotas públicas (leitura)
-router.get('/', produtoController.listar);
-router.get('/:id', produtoController.buscarPorId);
+const router = createBaseRouter(produtoController, {
+    middleware: [authenticate, authorizeAdmin],
+    extraRoutes: [
+        {
+            method: 'post',
+            path: '/:id/comprar',
+            middleware: [authenticate], // qualquer usuário logado pode comprar
+            handler: produtoController.comprar,
+        },
+    ],
+});
 
-// Rotas protegidas (apenas admin)
-router.post('/', authenticate, authorizeAdmin, produtoController.criar);
-router.put('/:id', authenticate, authorizeAdmin, produtoController.atualizar);
-router.delete('/:id', authenticate, authorizeAdmin, produtoController.deletar);
+// Rotas públicas (GET)
+// Já são expostas pelo BaseRouter antes do middleware.
 
 module.exports = router;

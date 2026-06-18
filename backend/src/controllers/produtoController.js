@@ -1,86 +1,35 @@
 // src/controllers/produtoController.js
-const { Produto, Categoria } = require('../models');
+const BaseController = require('./BaseController');
+const { Produto } = require('../models');
 
-exports.listar = async (req, res) => {
-    try {
-        const produtos = await Produto.findAll({
-            include: ['categoria'],
-            order: [['id', 'ASC']],
-        });
-        res.json(produtos);
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-};
+const controller = new BaseController(Produto, {
+    order: [['id', 'ASC']],
+    include: ['categoria'],
+});
 
-exports.buscarPorId = async (req, res) => {
+// Método extra: comprar (diminuir estoque)
+controller.comprar = async (req, res) => {
     try {
         const { id } = req.params;
-        const produto = await Produto.findByPk(id, {
-            include: ['categoria'],
-        });
-        if (!produto) {
-            return res.status(404).json({ erro: 'Produto não encontrado' });
-        }
-        res.json(produto);
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-};
-
-exports.criar = async (req, res) => {
-    try {
-        const { nome, preco, estoque, img, categoria_id } = req.body;
-        const produto = await Produto.create({
-            nome,
-            preco,
-            estoque,
-            img,
-            categoria_id,
-        });
-        const produtoCompleto = await Produto.findByPk(produto.id, {
-            include: ['categoria'],
-        });
-        res.status(201).json(produtoCompleto);
-    } catch (error) {
-        res.status(400).json({ erro: error.message });
-    }
-};
-
-exports.atualizar = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { nome, preco, estoque, img, categoria_id } = req.body;
+        const { quantidade = 1 } = req.body;
         const produto = await Produto.findByPk(id);
-        if (!produto) {
-            return res.status(404).json({ erro: 'Produto não encontrado' });
+        if (!produto) return res.status(404).json({ erro: 'Produto não encontrado' });
+        if (produto.estoque < quantidade) {
+            return res.status(400).json({ erro: 'Estoque insuficiente' });
         }
-        await produto.update({
-            nome,
-            preco,
-            estoque,
-            img,
-            categoria_id,
-        });
-        const produtoAtualizado = await Produto.findByPk(id, {
-            include: ['categoria'],
-        });
-        res.json(produtoAtualizado);
-    } catch (error) {
-        res.status(400).json({ erro: error.message });
-    }
-};
-
-exports.deletar = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const produto = await Produto.findByPk(id);
-        if (!produto) {
-            return res.status(404).json({ erro: 'Produto não encontrado' });
-        }
-        await produto.destroy();
-        res.json({ mensagem: 'Produto removido com sucesso' });
+        produto.estoque -= quantidade;
+        await produto.save();
+        res.json({ mensagem: 'Compra realizada com sucesso', estoque: produto.estoque });
     } catch (error) {
         res.status(500).json({ erro: error.message });
     }
+};
+
+module.exports = {
+    listar: controller.listar,
+    buscarPorId: controller.buscarPorId,
+    criar: controller.criar,
+    atualizar: controller.atualizar,
+    deletar: controller.deletar,
+    comprar: controller.comprar,
 };

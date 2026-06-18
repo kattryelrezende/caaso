@@ -11,13 +11,11 @@ exports.register = async (req, res) => {
             return res.status(400).json({ erro: 'Nome, NUSP, e-mail e senha são obrigatórios' });
         }
 
-        // Validar email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return res.status(400).json({ erro: 'E-mail inválido' });
         }
 
-        // Verificar duplicados
         const usuarioExistente = await Usuario.findOne({ where: { nusp } });
         if (usuarioExistente) {
             return res.status(400).json({ erro: 'NUSP já cadastrado' });
@@ -47,9 +45,11 @@ exports.register = async (req, res) => {
                 id: usuario.id,
                 nome: usuario.nome,
                 nusp: usuario.nusp,
-                email: usuario.email,
-                curso: usuario.curso,
+                email: usuario.email,        // ADICIONADO
+                curso: usuario.curso,        // ADICIONADO
                 tipo: usuario.tipo,
+                socio: usuario.socio,        // ADICIONADO
+                receber_notificacoes: usuario.receber_notificacoes, // ADICIONADO
                 criado_em: usuario.criado_em,
             },
             token,
@@ -59,7 +59,6 @@ exports.register = async (req, res) => {
     }
 };
 
-// Login de usuário
 exports.login = async (req, res) => {
     try {
         const { nusp, senha } = req.body;
@@ -68,36 +67,38 @@ exports.login = async (req, res) => {
             return res.status(400).json({ erro: 'NUSP e senha são obrigatórios' });
         }
 
-        // Buscar usuário
         const usuario = await Usuario.findOne({ where: { nusp } });
         if (!usuario) {
             return res.status(401).json({ erro: 'Credenciais inválidas' });
         }
 
-        // Verificar senha
         const senhaValida = await usuario.verificarSenha(senha);
         if (!senhaValida) {
             return res.status(401).json({ erro: 'Credenciais inválidas' });
         }
 
-        // Gerar token JWT
         const token = jwt.sign(
             { id: usuario.id, tipo: usuario.tipo },
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
 
-        // Retornar dados do usuário
         res.json({
             usuario: {
                 id: usuario.id,
                 nome: usuario.nome,
                 nusp: usuario.nusp,
+                email: usuario.email,       
+                curso: usuario.curso,       
                 tipo: usuario.tipo,
+                socio: usuario.socio,       
+                receber_notificacoes: usuario.receber_notificacoes,
                 criado_em: usuario.criado_em,
             },
             token,
         });
+
+        console.log('Usuário retornado no login:', usuario);
     } catch (error) {
         res.status(500).json({ erro: error.message });
     }

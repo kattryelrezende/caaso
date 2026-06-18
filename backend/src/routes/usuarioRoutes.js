@@ -4,7 +4,6 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 const { authenticate } = require('../middleware/auth');
 
-// Todas as rotas exigem autenticação
 router.use(authenticate);
 
 router.put('/:id', usuarioController.atualizarPerfil);

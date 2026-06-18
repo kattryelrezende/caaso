@@ -42,6 +42,14 @@ const Usuario = sequelize.define('Usuario', {
             isIn: [['socio', 'admin']],
         },
     },
+    socio: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    },
+    receber_notificacoes: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
 }, {
     tableName: 'usuarios',
     timestamps: true,

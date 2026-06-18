@@ -85,18 +85,44 @@ window.addEventListener('pageLoaded', (event) => {
 });
 
 window.abrirEditarPerfil = function() {
-    const user = getCurrentUser();
+    // Buscar dados do usuário da sessão (garantia)
+    let user = getCurrentUser();
+
+    if (!user) {
+        const userData = sessionStorage.getItem('user_data');
+        if (userData) {
+            try {
+                user = JSON.parse(userData);
+            } catch (e) {
+                console.error('Erro ao parsear user_data', e);
+            }
+        }
+    }
     if (!user) {
         alert('Usuário não autenticado.');
         return;
     }
+
+    // Preencher os campos do modal
     document.getElementById('edit-nome').value = user.nome || '';
     document.getElementById('edit-email').value = user.email || '';
     document.getElementById('edit-curso').value = user.curso || '';
     document.getElementById('edit-senha-atual').value = '';
     document.getElementById('edit-nova-senha').value = '';
     document.getElementById('edit-confirma-senha').value = '';
+
+    // Abrir o modal
     document.getElementById('modal-editar-perfil').classList.remove('hidden');
+};
+
+window.tornarSocio = function() {
+    alert('Mock: Você agora é um sócio CAASO! (Benefícios liberados)');
+    // Pode atualizar o status na UI
+    document.getElementById('perfil-status').textContent = 'SÓCIO';
+};
+
+window.assinarNotificacoes = function() {
+    alert('Mock: Você receberá notícias por e-mail!');
 };
 
 window.fecharModalPerfil = function() {
@@ -160,3 +186,31 @@ document.addEventListener('submit', async function(e) {
         }
     }
 });
+
+window.comprarProduto = async function(id) {
+    try {
+        const token = sessionStorage.getItem('user_token');
+        if (!token) {
+            alert('Faça login para comprar.');
+            return;
+        }
+        const response = await fetch(`http://localhost:3000/api/produtos/${id}/comprar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ quantidade: 1 })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            alert('Compra realizada! Estoque restante: ' + data.estoque);
+            // Recarregar a lista de produtos
+            renderLoja();
+        } else {
+            alert(data.erro || 'Erro ao comprar');
+        }
+    } catch (error) {
+        alert('Erro na requisição: ' + error.message);
+    }
+};

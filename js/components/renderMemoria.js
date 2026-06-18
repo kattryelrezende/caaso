@@ -20,7 +20,6 @@ export async function renderMemoria() {
             return;
         }
 
-        // Preencher o select com as opções
         select.innerHTML = '';
         memoriaData.forEach((item, index) => {
             const option = document.createElement('option');
@@ -29,7 +28,6 @@ export async function renderMemoria() {
             select.appendChild(option);
         });
 
-        // Função para mudar a foto
         function mudarFoto(index) {
             const dado = memoriaData[index];
             if (!dado) return;
@@ -43,10 +41,7 @@ export async function renderMemoria() {
             }, 150);
         }
 
-        // Carregar a primeira foto
         mudarFoto(0);
-
-        // Evento de mudança no select
         select.addEventListener('change', function() {
             mudarFoto(parseInt(this.value));
         });

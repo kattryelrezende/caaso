@@ -7,8 +7,7 @@ const routes = {
     conquistas: '/pages/conquistas.html',
     loja: '/pages/loja.html',
     login: '/pages/login.html',
-    pagamento: '/pages/pagamento.html',
-    noticias: '/pages/noticias.html', // NOVO
+    noticias: '/pages/noticias.html',
 };
 
 let currentPage = 'home';
