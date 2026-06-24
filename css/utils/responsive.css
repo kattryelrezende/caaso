@@ -223,3 +223,98 @@ body { display: flex; flex-direction: column; min-height: 100vh; }
         box-shadow: 4px 4px 0 var(--caaso-black);
     }
 }
+
+@media (max-width: 900px) {
+    /* Transforma o layout do painel administrativo de colunas para blocos verticais uniformes */
+    .admin-container, 
+    .admin-dashboard, 
+    .admin-split-grid,
+    [id*="admin"] .grid, 
+    [id*="gerenciar"] .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        width: 100% !important;
+    }
+
+    /* Ajusta a barra lateral de navegação interna do menu admin para se comportar como um menu de topo flexível */
+    .admin-sidebar, 
+    .admin-nav, 
+    .admin-menu {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem !important;
+        border-right: none !important;
+        border-bottom: 4px solid var(--caaso-black) !important;
+    }
+
+    /* Faz com que cada botão/item de menu interno ocupe espaço proporcional sem quebrar linhas de modo bruto */
+    .admin-sidebar a, 
+    .admin-nav button, 
+    .admin-menu li {
+        flex: 1 1 auto !important;
+        text-align: center !important;
+        font-size: 1rem !important;
+        padding: 0.6rem !important;
+    }
+
+    /* Expande a área de conteúdo principal administrativa para ocupar toda a largura útil da tela */
+    .admin-content, 
+    .admin-main {
+        width: 100% !important;
+        padding: 1rem 0 !important;
+    }
+
+    /* Melhora as listagens e controles de CRUD para que fiquem enfileirados de forma limpa */
+    .crud-actions, 
+    .admin-actions {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1rem !important;
+    }
+
+    /* Garante que os inputs de busca, filtros e botões do admin expandam horizontalmente por completo */
+    .crud-actions input, 
+    .crud-actions select, 
+    .crud-actions button,
+    .admin-actions button {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* Isola as tabelas de gerenciamento de dados evitando que estourem e estiquem a janela do navegador */
+    .admin-table-wrapper,
+    table, 
+    .table-responsive {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        border: 2px solid var(--caaso-black) !important;
+    }
+
+    /* Adiciona um respiro interno para as células das tabelas facilitando o toque em telas mobile */
+    th, td {
+        padding: 0.8rem 0.5rem !important;
+        white-space: nowrap !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 500px) {
+    /* Em telas muito estreitas de smartphones, reordena o menu interno do admin para lista compacta */
+    .admin-sidebar, 
+    .admin-nav, 
+    .admin-menu {
+        flex-direction: column !important;
+    }
+    
+    .admin-sidebar a, 
+    .admin-nav button, 
+    .admin-menu li {
+        width: 100% !important;
+    }
+}
