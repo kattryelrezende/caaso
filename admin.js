@@ -90,8 +90,15 @@ function gerarCampos(tipo, valores = {}) {
     const config = fieldConfig[tipo];
     if (!config) return '';
     return config.map(campo => {
+        // Remove o prefixo do identificador do input para cruzar dados com o modelo
         const propName = campo.id.replace('i-', '');
-        const value = valores[propName] || '';
+        
+        // Evita colisões e divergências entre a nomenclatura de inputs do Front e esquemas do Back-end
+        let value = valores[propName];
+        if (value === undefined && propName === 'desc') value = valores['descricao'];
+        if (value === undefined && propName === 'texto') value = valores['texto'];
+        if (value === undefined) value = '';
+
         if (campo.type === 'select') {
             const options = campo.options.map((opt, idx) => {
                 const label = campo.optionLabels ? campo.optionLabels[idx] : opt;
@@ -100,6 +107,7 @@ function gerarCampos(tipo, valores = {}) {
             }).join('');
             return `<div class="form-group"><label>${campo.label}</label><select id="${campo.id}" class="street-select">${options}</select></div>`;
         } else if (campo.type === 'textarea') {
+            // Textareas precisam ter os dados injetados dentro das tags sem atributos inline de value
             return `<div class="form-group"><label>${campo.label}</label><textarea id="${campo.id}" ${campo.required ? 'required' : ''}>${value}</textarea></div>`;
         } else {
             const step = campo.step ? `step="${campo.step}"` : '';
