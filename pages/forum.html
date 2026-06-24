@@ -1,0 +1,33 @@
+export function obterHTMLForum() {
+    return `
+        <div class="page-section">
+            <div class="header-street">
+                <h2>MURAL DA COMUNIDADE (FÓRUM)</h2>
+            </div>
+            <p class="section-desc">Espaço livre para debater pautas, conquistas, repúblicas e o cotidiano acadêmico.</p>
+            
+            <!-- Criar Tópico (Só aparece se logado) -->
+            <div id="area-novo-topico" class="card-street" style="background-color: #fff9e6; display:none;">
+                <h3>Criar Nova Discussão</h3>
+                <div class="form-group" style="margin-top:1rem;">
+                    <label>Título do Tópico</label>
+                    <input type="text" id="forum-titulo" placeholder="Ex: Sugestões para o próximo Interbatuc">
+                </div>
+                <div class="form-group">
+                    <label>Conteúdo</label>
+                    <textarea id="forum-conteudo" placeholder="Escreva aqui os detalhes da sua postagem..."></textarea>
+                </div>
+                <button class="btn-primary" onclick="publicarNovoTopico()">Publicar Post</button>
+            </div>
+
+            <div id="aviso-login-forum" class="socio-status" style="display:block;">
+                Faça <a href="#login" style="color:var(--caaso-red);">Login</a> para iniciar uma nova discussão.
+            </div>
+
+            <!-- Listagem de tópicos ativos -->
+            <div id="lista-topicos-forum" style="margin-top: 2rem; display: grid; gap: 1.5rem;">
+                <!-- Injetado dinamicamente via JS -->
+            </div>
+        </div>
+    `;
+}
