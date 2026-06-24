@@ -75,3 +75,35 @@ export const usuarios = {
     }),
     perfil: (id) => request(`/usuarios/${id}`),
 };
+
+export const topicos = {
+    listar: () => request('/forum/topicos'),
+    listarTodos: () => request('/forum/admin/topicos'),
+    criar: (dados) => request('/forum/topicos', {
+        method: 'POST',
+        body: JSON.stringify(dados)
+    }),
+    curtir: (id) => request(`/forum/topicos/${id}/curtir`, {
+        method: 'POST'
+    }),
+    obterComComentarios: (id) => request(`/forum/topicos/${id}`),
+    deletar: (id) => request(`/forum/topicos/${id}`, {
+        method: 'DELETE'
+    }),
+    arquivar: (id) => request(`/forum/topicos/${id}/arquivar`, {
+        method: 'PUT'
+    }),
+    trancar: (id) => request(`/forum/topicos/${id}/trancar`, {
+        method: 'PUT'
+    }),
+    reabrir: (id) => request(`/forum/topicos/${id}/reabrir`, {
+        method: 'PUT'
+    })
+};
+
+export const comentarios = {
+    criar: (topicoId, dados) => request(`/forum/topicos/${topicoId}/comentarios`, {
+        method: 'POST',
+        body: JSON.stringify(dados)
+    })
+};

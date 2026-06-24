@@ -28,6 +28,10 @@ window.addEventListener('pageLoaded', (event) => {
         import('./components/renderPautas.js').then(module => {
             module.renderPautas();
         });
+    } else if (page === 'forum') {
+        import('./components/renderForum.js').then(module => {
+            module.renderForum();
+        });
     } else if (page === 'loja') {
         import('./components/renderLoja.js').then(module => {
             module.renderLoja();

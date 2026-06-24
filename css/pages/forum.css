@@ -1,0 +1,150 @@
+/* css/pages/forum.css - Estilos para a página do fórum */
+
+/* Área de criar novo tópico */
+#area-novo-topico {
+    background-color: #fff9e6;
+    border-left: 4px solid var(--caaso-red);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+#area-novo-topico h3 {
+    margin-top: 0;
+    color: var(--caaso-red);
+}
+
+#area-novo-topico .form-group {
+    margin-bottom: 1rem;
+}
+
+#area-novo-topico label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: #333;
+}
+
+#area-novo-topico input[type="text"],
+#area-novo-topico textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+#area-novo-topico textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Botão curtir nos cards */
+.btn-like {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    color: #333;
+}
+
+.btn-like:hover {
+    background-color: #ffe6e6;
+    border-color: var(--caaso-red);
+    color: var(--caaso-red);
+}
+
+/* Cards de tópicos na lista */
+#lista-topicos-forum .card-street {
+    background: white;
+    padding: 1.2rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s, transform 0.1s;
+}
+
+#lista-topicos-forum .card-street:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+}
+
+#lista-topicos-forum .card-street h3 {
+    margin: 0 0 0.3rem 0;
+    color: var(--caaso-red);
+}
+
+#lista-topicos-forum .card-street p {
+    margin: 0.4rem 0 0.6rem 0;
+    color: #444;
+    line-height: 1.4;
+}
+
+#lista-topicos-forum .card-street .meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Modal do fórum (já deve ter estilos no modal.css, mas complementamos) */
+.modal-topico .modal-content {
+    max-width: 700px;
+}
+
+.modal-topico #modal-topico-conteudo h2 {
+    color: var(--caaso-red);
+    margin-top: 0;
+}
+
+.modal-topico #modal-topico-comentarios {
+    margin-top: 1.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+.modal-topico #modal-topico-comentarios .comentario {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.8rem 0;
+}
+
+.modal-topico #modal-topico-comentarios .comentario:last-child {
+    border-bottom: none;
+}
+
+.modal-topico #modal-topico-comentarios .comentario .autor {
+    font-weight: 700;
+    color: #222;
+}
+
+.modal-topico #modal-topico-comentarios .comentario .data {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 0.5rem;
+}
+
+.modal-topico #modal-topico-novo-comentario textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.modal-topico #modal-topico-novo-comentario .btn-primary {
+    margin-top: 0.5rem;
+}
+
+/* Aviso de login */
+#aviso-login-forum {
+    background: #f8f8f8;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}

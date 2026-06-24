@@ -1,28 +1,36 @@
-// src/middleware/auth.js
+// backend/src/middleware/auth.js
 const jwt = require('jsonwebtoken');
 
-// Verifica se o token JWT é válido e anexa o usuário à requisição
+// Autenticação obrigatória
 exports.authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-        return res.status(401).json({ erro: 'Token não fornecido' });
-    }
-
+    if (!authHeader) return res.status(401).json({ erro: 'Token não fornecido' });
     const parts = authHeader.split(' ');
-    if (parts.length !== 2 || parts[0] !== 'Bearer') {
-        return res.status(401).json({ erro: 'Token mal formatado' });
-    }
-
-    const token = parts[1];
-
+    if (parts.length !== 2 || parts[0] !== 'Bearer') return res.status(401).json({ erro: 'Token mal formatado' });
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // { id, tipo, iat, exp }
+        const decoded = jwt.verify(parts[1], process.env.JWT_SECRET);
+        req.user = decoded;
         next();
     } catch (error) {
         return res.status(401).json({ erro: 'Token inválido ou expirado' });
     }
+};
+
+// Autenticação opcional
+exports.optionalAuth = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+        const parts = authHeader.split(' ');
+        if (parts.length === 2 && parts[0] === 'Bearer') {
+            try {
+                const decoded = jwt.verify(parts[1], process.env.JWT_SECRET);
+                req.user = decoded;
+            } catch (error) {
+                // Token inválido – apenas ignora e continua como não autenticado
+            }
+        }
+    }
+    next();
 };
 
 // Verifica se o usuário é administrador

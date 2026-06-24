@@ -1,4 +1,6 @@
-/* css/components/modals.css */
+/* css/components/modals.css - Estilos para todos os modais da aplicação */
+
+/* ===== OVERLAY GENÉRICO ===== */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -10,15 +12,20 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    padding: 2rem;
+    padding: 1.5rem;
     opacity: 1;
     transition: opacity 0.3s ease;
+    box-sizing: border-box;
 }
+
+/* Estado oculto: mantém display:flex para evitar reflow, mas invisível e não interativo */
 .modal-overlay.hidden {
     opacity: 0;
     pointer-events: none;
     display: flex !important;
 }
+
+/* ===== CAIXA PRINCIPAL DO MODAL (para histórico, etc.) ===== */
 .modal-box {
     background-color: #fff9e6;
     width: 100%;
@@ -28,7 +35,53 @@
     position: relative;
     padding: 3rem 2rem;
     cursor: default;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border-radius: 4px;
 }
+
+/* ===== CONTEÚDO DO MODAL (usado tanto dentro de .modal-box quanto diretamente) ===== */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.modal-content img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border: 4px solid var(--caaso-black);
+    filter: sepia(1) hue-rotate(10deg) saturate(2);
+}
+
+/* Layout para telas maiores (usado no histórico) */
+@media (min-width: 768px) {
+    .modal-content {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .modal-content img {
+        width: 40%;
+        position: sticky;
+        top: 0;
+    }
+    .modal-textos {
+        width: 60%;
+    }
+}
+
+/* ===== TÍTULO ESTILO STREET (para histórico) ===== */
+.modal-title-street {
+    background-color: var(--caaso-black);
+    color: var(--caaso-yellow);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+    transform: rotate(-1deg);
+}
+
+/* ===== BOTÃO FECHAR (padrão, usado no histórico) ===== */
 .btn-fechar {
     position: absolute;
     top: 15px;
@@ -53,29 +106,166 @@
     transform: translate(4px, 4px);
     box-shadow: 0 0 0 var(--caaso-black);
 }
-.modal-content {
+
+/* ============================================================ */
+/* ===== ESTILOS ESPECÍFICOS PARA O MODAL DO FÓRUM ===== */
+/* ============================================================ */
+
+/* Overlay do fórum – herda tudo do .modal-overlay, mas podemos ajustar se necessário */
+#modal-topico.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* um pouco mais claro para o fórum */
+}
+
+/* Caixa de conteúdo do fórum – usada diretamente dentro do overlay (sem .modal-box) */
+#modal-topico .modal-content {
+    background-color: #fff9e6;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
+    animation: modalFadeIn 0.25s ease;
 }
-.modal-content img {
-    width: 100%;
-    max-height: 350px;
-    object-fit: cover;
-    border: 4px solid var(--caaso-black);
-    filter: sepia(1) hue-rotate(10deg) saturate(2);
+
+/* Animação de entrada */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
-.modal-title-street {
-    background-color: var(--caaso-black);
-    color: var(--caaso-yellow);
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1.5rem;
+
+/* Botão de fechar específico do fórum (classe modal-close) */
+#modal-topico .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
     font-size: 2.2rem;
-    transform: rotate(-1deg);
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.1s;
+    background: none;
+    border: none;
+    line-height: 1;
+    padding: 0 8px;
+    z-index: 10;
 }
-@media (min-width: 768px) {
-    .modal-content { flex-direction: row; align-items: flex-start; }
-    .modal-content img { width: 40%; position: sticky; top: 0; }
-    .modal-textos { width: 60%; }
+#modal-topico .modal-close:hover {
+    color: var(--caaso-red);
+    transform: scale(1.1);
+}
+
+/* Título do tópico */
+#modal-topico #modal-topico-conteudo h2 {
+    color: var(--caaso-red, #c0392b);
+    margin-top: 0;
+    font-size: 1.8rem;
+    border-bottom: 3px solid var(--caaso-red, #c0392b);
+    padding-bottom: 0.3rem;
+}
+
+/* Informações do autor, data, curtidas */
+#modal-topico #modal-topico-conteudo p:first-of-type {
+    color: #555;
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+}
+
+#modal-topico #modal-topico-conteudo p:last-of-type {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin-top: 0.5rem;
+}
+
+/* Botão curtir dentro do modal */
+#modal-topico .btn-like {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0.2rem 0.9rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    color: #333;
+    margin-left: 0.5rem;
+}
+#modal-topico .btn-like:hover {
+    background-color: #ffe6e6;
+    border-color: var(--caaso-red);
+    color: var(--caaso-red);
+}
+
+/* Lista de comentários */
+#modal-topico #modal-topico-comentarios {
+    border-top: 2px solid #eee;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+#modal-topico #modal-topico-comentarios .comentario {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.8rem 0;
+}
+#modal-topico #modal-topico-comentarios .comentario:last-child {
+    border-bottom: none;
+}
+
+#modal-topico #modal-topico-comentarios .comentario .autor {
+    font-weight: 700;
+    color: #222;
+}
+#modal-topico #modal-topico-comentarios .comentario .data {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 0.5rem;
+}
+#modal-topico #modal-topico-comentarios .comentario p {
+    margin: 0.2rem 0 0 0;
+}
+
+/* Área de novo comentário */
+#modal-topico #modal-topico-novo-comentario {
+    margin-top: 0.5rem;
+}
+
+#modal-topico #modal-topico-novo-comentario textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 70px;
+}
+
+#modal-topico #modal-topico-novo-comentario .btn-primary {
+    margin-top: 0.5rem;
+}
+
+/* ===== RESPONSIVIDADE PARA O MODAL DO FÓRUM ===== */
+@media (max-width: 600px) {
+    #modal-topico .modal-content {
+        padding: 1.5rem 1rem;
+        max-height: 95vh;
+        border-radius: 4px;
+    }
+    #modal-topico #modal-topico-conteudo h2 {
+        font-size: 1.4rem;
+    }
+    #modal-topico .modal-close {
+        top: 10px;
+        right: 12px;
+        font-size: 1.8rem;
+    }
 }

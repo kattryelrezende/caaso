@@ -8,6 +8,7 @@ const routes = {
     loja: '/pages/loja.html',
     login: '/pages/login.html',
     noticias: '/pages/noticias.html',
+    forum: '/pages/forum.html',
 };
 
 let currentPage = 'home';
@@ -42,7 +43,6 @@ export const router = {
             const main = document.getElementById('app-content');
             main.innerHTML = html;
             currentPage = page;
-            // Atualizar links ativos
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active-page');
                 if (link.dataset.page === page) {

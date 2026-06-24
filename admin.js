@@ -8,7 +8,8 @@ import {
     historicos as historicosAPI,
     conquistas as conquistasAPI,
     cartas as cartasAPI,
-    servicos as servicosAPI // NOVO
+    servicos as servicosAPI,
+    topicos as topicosAPI
 } from './js/services/api.js';
 import { getToken } from './js/services/authService.js';
 
@@ -37,6 +38,26 @@ function checkAdminAuth() {
 if (!checkAdminAuth()) {
     // O redirecionamento já acontece dentro da função
 }
+
+window.arquivarTopicoAdmin = async (id) => {
+    if (!confirm('Arquivar este tópico?')) return;
+    await topicosAPI.arquivar(id);
+    renderTabelas();
+};
+window.trancarTopicoAdmin = async (id) => {
+    if (!confirm('Trancar este tópico? (impede novos comentários)')) return;
+    await topicosAPI.trancar(id);
+    renderTabelas();
+};
+window.reabrirTopicoAdmin = async (id) => {
+    await topicosAPI.reabrir(id);
+    renderTabelas();
+};
+window.deletarTopicoAdmin = async (id) => {
+    if (!confirm('Deletar permanentemente este tópico?')) return;
+    await topicosAPI.deletar(id);
+    renderTabelas();
+};
 
 window.renderTabelas = renderTabelas;
 

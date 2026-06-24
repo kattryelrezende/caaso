@@ -26,6 +26,7 @@
             <button class="nav-btn" data-tab="conquistas">Conquistas</button>
             <button class="nav-btn" data-tab="carta">Carta da Gestão</button>
             <button class="nav-btn" data-tab="servicos">Serviços</button>
+            <button class="nav-btn" data-tab="forum">Fórum</button>
         </nav>
         <div class="sidebar-footer">
             <a href="index.html" class="btn-secondary w-100 text-center" style="display: block; text-decoration: none;">Sair / Voltar ao Site</a>
@@ -140,6 +141,18 @@
                     <table class="admin-table">
                         <thead><tr><th>ID</th><th>Título</th><th>Ícone</th><th>Ativo</th><th>Ações</th></tr></thead>
                         <tbody id="tbody-servicos"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="crud-forum" class="crud-section">
+                <div class="crud-header">
+                    <h3>Gerenciar Tópicos do Fórum</h3>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Título</th><th>Autor</th><th>Status</th><th>Ações</th></tr></thead>
+                        <tbody id="tbody-forum"></tbody>
                     </table>
                 </div>
             </section>

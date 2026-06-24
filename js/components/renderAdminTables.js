@@ -7,7 +7,8 @@ import {
     historicos as historicosAPI,
     conquistas as conquistasAPI,
     cartas as cartasAPI,
-    servicos as servicosAPI
+    servicos as servicosAPI,
+    topicos as topicosAPI
 } from '../services/api.js';
 
 export async function renderTabelas() {
@@ -153,8 +154,72 @@ export async function renderTabelas() {
                 </tr>
             `).join('');
         }
+
+        // Tópicos
+        const topicosAdmin = await topicosAPI.listarTodos();
+        const tbodyForum = document.getElementById('tbody-forum');
+        if (tbodyForum) {
+            tbodyForum.innerHTML = topicosAdmin.map(t => {
+                const statusClass = {
+                    'ativo': 'status-active',
+                    'arquivado': 'status-archived',
+                    'trancado': 'status-locked'
+                }[t.status] || '';
+
+                let acoes = '';
+                if (t.status === 'ativo') {
+                    acoes += `<button class="btn-warning" onclick="window.arquivarTopicoAdmin(${t.id})">Arquivar</button> `;
+                    acoes += `<button class="btn-warning" onclick="window.trancarTopicoAdmin(${t.id})">Trancar</button> `;
+                } else {
+                    acoes += `<button class="btn-success" onclick="window.reabrirTopicoAdmin(${t.id})">Reabrir</button> `;
+                }
+                acoes += `<button class="btn-delete" onclick="window.deletarTopicoAdmin(${t.id})">Excluir</button>`;
+
+                return `
+                    <tr>
+                        <td>#${t.id}</td>
+                        <td><strong>${t.titulo}</strong></td>
+                        <td>${t.autor?.nome || 'Anônimo'}</td>
+                        <td><span class="status-badge ${statusClass}">${t.status}</span></td>
+                        <td>${acoes}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
     } catch (error) {
         console.error('Erro ao renderizar tabelas:', error);
         alert('Erro ao carregar dados. Verifique se o servidor está rodando.');
     }
+}
+
+// Fórum (ADMIN) – lista todos os tópicos
+const topicosAdmin = await topicosAPI.listarTodos();
+const tbodyForum = document.getElementById('tbody-forum');
+if (tbodyForum) {
+    tbodyForum.innerHTML = topicosAdmin.map(t => {
+        const statusClass = {
+            'ativo': 'status-active',
+            'arquivado': 'status-archived',
+            'trancado': 'status-locked'
+        }[t.status] || '';
+
+        let acoes = '';
+        if (t.status === 'ativo') {
+            acoes += `<button class="btn-warning" onclick="window.arquivarTopicoAdmin(${t.id})">Arquivar</button> `;
+            acoes += `<button class="btn-warning" onclick="window.trancarTopicoAdmin(${t.id})">Trancar</button> `;
+        } else {
+            acoes += `<button class="btn-success" onclick="window.reabrirTopicoAdmin(${t.id})">Reabrir</button> `;
+        }
+        acoes += `<button class="btn-delete" onclick="window.deletarTopicoAdmin(${t.id})">Excluir</button>`;
+
+        return `
+            <tr>
+                <td>#${t.id}</td>
+                <td><strong>${t.titulo}</strong></td>
+                <td>${t.autor?.nome || 'Anônimo'}</td>
+                <td><span class="status-badge ${statusClass}">${t.status}</span></td>
+                <td>${acoes}</td>
+            </tr>
+        `;
+    }).join('');
 }

@@ -1,4 +1,4 @@
-// src/models/index.js
+// backend/src/models/index.js
 const Categoria = require('./Categoria');
 const Produto = require('./Produto');
 const Usuario = require('./Usuario');
@@ -11,18 +11,12 @@ const Carta = require('./Carta');
 const Servico = require('./Servico');
 const Topico = require('./Topico');
 const Comentario = require('./Comentario');
+const Like = require('./Like');
 
-// Relacionamentos existentes
-Categoria.hasMany(Produto, {
-    foreignKey: 'categoria_id',
-    as: 'produtos',
-});
-Produto.belongsTo(Categoria, {
-    foreignKey: 'categoria_id',
-    as: 'categoria',
-});
+// Relacionamentos
+Categoria.hasMany(Produto, { foreignKey: 'categoria_id', as: 'produtos' });
+Produto.belongsTo(Categoria, { foreignKey: 'categoria_id', as: 'categoria' });
 
-// Relacionamentos do Fórum
 Usuario.hasMany(Topico, { foreignKey: 'usuario_id', as: 'topicos' });
 Topico.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'autor' });
 
@@ -31,6 +25,12 @@ Comentario.belongsTo(Topico, { foreignKey: 'topico_id', as: 'topico' });
 
 Usuario.hasMany(Comentario, { foreignKey: 'usuario_id', as: 'comentarios' });
 Comentario.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'autor' });
+
+Topico.hasMany(Like, { foreignKey: 'topico_id', as: 'likes' });
+Like.belongsTo(Topico, { foreignKey: 'topico_id' });
+
+Usuario.hasMany(Like, { foreignKey: 'usuario_id', as: 'likes' });
+Like.belongsTo(Usuario, { foreignKey: 'usuario_id' });
 
 const models = {
     Categoria,
@@ -45,6 +45,7 @@ const models = {
     Servico,
     Topico,
     Comentario,
+    Like,
 };
 
 module.exports = models;

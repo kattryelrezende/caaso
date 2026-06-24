@@ -14,6 +14,7 @@ const noticiaRoutes = require('./routes/noticiaRoutes');
 const cartaRoutes = require('./routes/cartaRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const servicoRoutes = require('./routes/servicoRoutes');
+const forumRoutes = require('./routes/forumRoutes');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use('/api/noticias', noticiaRoutes);
 app.use('/api/cartas', cartaRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/servicos', servicoRoutes);
+app.use('/api/forum', forumRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({
